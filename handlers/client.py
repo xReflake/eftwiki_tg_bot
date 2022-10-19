@@ -2,11 +2,16 @@ from aiogram import types, Dispatcher
 
 import keyboard.client_kb
 from create_bot import dp, bot
-
 # @dp.message_handler(commands=['start','help'])
 async def commands_start(message : types.Message):
     try:
-        await bot.send_message(message.from_user.id, '- Эй, {0.first_name}!\nЯ вижу у тебя долгий путь.\nЗагляни к нам в лагерь и узнаешь много интересного!'.format(message.from_user),reply_markup = keyboard.client_kb.mainMenu)
+        photo = open('C:\MyProject\TG_bot\logo_tarkov.jpg','rb')
+
+        await bot.send_photo(
+            chat_id=message.chat.id,
+            photo=photo,
+            caption='- Эй, {0.first_name}!\nЯ вижу у тебя долгий путь.\nЗагляни к нам в лагерь и узнаешь много интересного!'.format(message.from_user),reply_markup = keyboard.client_kb.mainMenu
+        )
     except:
         await message.reply('Общение с ботом через ЛС, напишите ему:\nhttps://t.me/EFT_WikiBot')
 
