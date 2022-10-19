@@ -6,11 +6,7 @@ from create_bot import dp, bot
 # @dp.message_handler(commands=['start','help'])
 async def commands_start(message : types.Message):
     try:
-        caption = 'Какие глазки! :eyes:'
-        #await bot.send_message(message.from_user.id, '- Эй, {0.first_name}!\nЯ вижу у тебя долгий путь.\nЗагляни к нам в лагерь и узнаешь много интересного!'.format(message.from_user),reply_markup = keyboard.client_kb.mainMenu)
-        await bot.send_photo(message.from_user.id, photo.logo_tarkov.png,
-                             caption=emojize(caption),
-                             reply_to_message_id=message.message_id)
+        await bot.send_message(message.from_user.id, '- Эй, {0.first_name}!\nЯ вижу у тебя долгий путь.\nЗагляни к нам в лагерь и узнаешь много интересного!'.format(message.from_user),reply_markup = keyboard.client_kb.mainMenu)
     except:
         await message.reply('Общение с ботом через ЛС, напишите ему:\nhttps://t.me/EFT_WikiBot')
 
