@@ -250,7 +250,7 @@ async def eft_all_command(message : types.Message):
             , reply_markup=keyboard.client_kb.mechanicMenu1
         )
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
-        await bot.send_message(message.from_user.id, 'ССЫЛКА')
+        await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=BY3Qi_X2htg')
         # КВЕСТ МЕХАНИКА 9
     elif message.text == 'Оружейник. Часть 8 (АКМ)':
         photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv9.jpg', 'rb')
@@ -287,7 +287,7 @@ async def eft_all_command(message : types.Message):
                     '\n·575 евро с Разведцентр УР 2'
                     '\n·Механик Rep +0.03'
                     '\n·1x Colt M4A1 5.56x45 SOPMOD II'
-            , reply_markup=keyboard.client_kb.mechanicMenu1
+            , reply_markup=keyboard.client_kb.mechanicMenu2
         )
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
         await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=LYbfWr7xoNg')
