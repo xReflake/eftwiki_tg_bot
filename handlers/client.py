@@ -291,7 +291,7 @@ async def eft_all_command(message : types.Message):
         )
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
         await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=LYbfWr7xoNg')
-
+        # КВЕСТ МЕХАНИКА 11
 def register_handlers_client(dp : Dispatcher):
     dp.register_message_handler(commands_start, commands=['start','help'])
     dp.register_message_handler(eft_all_command)
