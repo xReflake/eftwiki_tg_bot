@@ -1,6 +1,8 @@
 from aiogram import types, Dispatcher
-
 import keyboard.client_kb
+import parse_info.parsing
+import requests
+from bs4 import BeautifulSoup as BS
 from create_bot import dp, bot
 # @dp.message_handler(commands=['start','help'])
 async def commands_start(message : types.Message):
@@ -63,22 +65,24 @@ async def eft_all_command(message : types.Message):
     # КВЕСТЫ МЕХАНИКА
     # КВЕСТ МЕХАНИКА 1
     elif message.text == 'Поручение':
+        link = 'https://escapefromtarkov.fandom.com/ru/wiki/%D0%9F%D0%BE%D1%80%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5'
+        r = requests.get(link)
+        soup = BS(r.content, 'lxml')
+        parse_name = parse_info.parsing.parse_name_quest(link,soup)
+        page_h1 = soup.find("div", class_="mw-parser-output")
+        page_h1 = page_h1.text.strip()
         photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv1.png', 'rb')
         await bot.send_photo(
             chat_id=message.chat.id,
             photo=photo,
-            caption='*** ЦЕЛИ ***'
-                    '\n·Найти место стоянки Егеря'
-                    '\n·Найти послание от Егеря'
-                    '\n·Передать послание Механику'
+            caption='*** НАЗВАНИЕ КВЕСТА ***\n' +
+                    parse_name + '\n'
+                    '*** ЦЕЛИ ***''\n'
+                    + parse_info.parsing.parse_target(link,soup) +
                     '\n\n'
-                    '*** НАГРАДА ***'     
-                    '\n·+4 500 EXP Механик'
-                    '\n·Механик Rep +0.03'
-                    '\n·30 000 руб.'
-                        '\n·31 500 руб. с Разведцентр УР 1'
-                        '\n·34 500 руб. с Разведцентр УР 2'
-                    '\n·+ Начало квестовой линейки у Егеря'
+                    '*** НАГРАДА ***''\n'
+                    + parse_info.parsing.parse_reward(link,soup) +
+                    ''
                     , reply_markup=keyboard.client_kb.mechanicMenu1
         )
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
@@ -252,6 +256,7 @@ async def eft_all_command(message : types.Message):
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
         await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=BY3Qi_X2htg')
         # КВЕСТ МЕХАНИКА 9
+    # КВЕСТ МЕХАНИКА 9
     elif message.text == 'Оружейник. Часть 8 (АКМ)':
         photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv9.jpg', 'rb')
         await bot.send_photo(
@@ -272,6 +277,7 @@ async def eft_all_command(message : types.Message):
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
         await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=Eyk8qzZmTx0')
         # КВЕСТ МЕХАНИКА 10
+    # КВЕСТ МЕХАНИКА 10
     elif message.text == 'Оружейник. Часть 9 (АКС-74Н)':
         photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv10.jpg', 'rb')
         await bot.send_photo(
@@ -291,7 +297,44 @@ async def eft_all_command(message : types.Message):
         )
         await bot.send_message(message.from_user.id, '*** Выполнение ***')
         await bot.send_message(message.from_user.id, 'https://www.youtube.com/watch?v=LYbfWr7xoNg')
-        # КВЕСТ МЕХАНИКА 11
+    # КВЕСТ МЕХАНИКА 11
+    elif message.text == 'Оружейник. Часть 10 (АК-105)':
+        photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv11.jpg', 'rb')
+        await bot.send_photo(
+            chat_id=message.chat.id,
+            photo=photo,
+            caption='*** ЦЕЛИ ***'
+                    '\n·Модифицировать АК-105 до требуемых параметров'
+                    '\n\n'
+                    '*** НАГРАДА ***'
+                    '\n·+13 300 EXP'
+                    '\n·Механик Rep +0.03'
+                    '\n·2x Кейс для патронов'
+                    '\n·Разблокирует покупку Colt M4A1 5.56x45 SOPMOD I на LL3'
+                    '\n·Разблокирует покупку 5.7x28мм R37.F на LL4'
+            , reply_markup=keyboard.client_kb.mechanicMenu2
+        )
+        await bot.send_message(message.from_user.id, '*** Выполнение ***')
+        await bot.send_message(message.from_user.id, 'Youtube')
+    # КВЕСТ МЕХАНИКА 12
+    elif message.text == 'Оружейник. Часть 11 (АС Вал)':
+        photo = open('C:\MyProject\TG_bot\photo\qv_mechanic\qv11.jpg', 'rb')
+        await bot.send_photo(
+            chat_id=message.chat.id,
+            photo=photo,
+            caption='*** ЦЕЛИ ***'
+                    '\n·Модифицировать АС Вал до требуемых параметров'
+                    '\n\n'
+                    '*** НАГРАДА ***'
+                    '\n·+13 300 EXP'
+                    '\n·Механик Rep +0.03'
+                    '\n·2x Кейс для патронов'
+                    '\n·Разблокирует покупку Colt M4A1 5.56x45 SOPMOD I на LL3'
+                    '\n·Разблокирует покупку 5.7x28мм R37.F на LL4'
+            , reply_markup=keyboard.client_kb.mechanicMenu2
+        )
+        await bot.send_message(message.from_user.id, '*** Выполнение ***')
+        await bot.send_message(message.from_user.id, 'Youtube')
 def register_handlers_client(dp : Dispatcher):
     dp.register_message_handler(commands_start, commands=['start','help'])
     dp.register_message_handler(eft_all_command)
